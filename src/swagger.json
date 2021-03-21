@@ -33,7 +33,8 @@
                 }
               }
             }
-          }
+          },
+          "required":"true"
         },
         "responses":{
           "201":{
@@ -44,22 +45,28 @@
                   "type":"object",
                   "properties":{
                     "id":{
-                      "type":"uuid"
+                      "type":"string",
+                      "enum":["aced8d93-7162-4014-8c48-f0e2f251f6ab"]
                     },
                     "admin":{
-                      "type":"boolean"
+                      "type":"boolean",
+                      "enum":[false]
                     },
                     "name":{
-                      "type":"string"
+                      "type":"string",
+                      "enum":["name user sample"]
                     },
                     "email":{
-                      "type":"string"
+                      "type":"string",
+                      "enum":["email@email.com"]
                     },
                     "created_at":{
-                      "type":"string"
+                      "type":"string",
+                      "enum":["2021-03-21T16:24:38.741Z"]
                     },
                     "updated_at":{
-                      "type":"string"
+                      "type":"string",
+                      "enum":["2021-03-21T16:24:38.741Z"]
                     }
                   }
                 }
@@ -67,14 +74,27 @@
             }
           },
           "400":{
-            "description":"Email Already Exists"
+            "description":"Email Already Exists",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "type":"object",
+                  "properties":{
+                    "error":{
+                      "type":"string",
+                      "enum":["Email Already Exists"]
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       },
       "get":{
         "tags":["User"],
         "summary":"List all users",
-        "description":"List all users",
+        "description":"Only `administrator` user can access",
         "parameters":[
           {
             "in":"header",
@@ -97,7 +117,7 @@
                     "type":"object",
                     "properties":{
                       "id":{
-                        "type":"uuid"
+                        "type":"string"
                       },
                       "admin":{
                         "type":"boolean"
@@ -121,12 +141,25 @@
             }
           },
           "400":{
-            "description":"User not found or User isn't administrator"
+            "description":"User not found or User isn't administrator",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "type":"object",
+                  "properties":{
+                    "error":{
+                      "type":"string",
+                      "enum":["User not found or User isn't administrator"]
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }      
     },
-    "/users/:user_id/admin":{
+    "/users/{user_id}/admin":{
       "patch":{
         "tags":["User"],
         "summary":"User Admin",
@@ -174,12 +207,25 @@
             }
           },
           "400":{
-            "description":"User not found or User isn't administrator"
+            "description":"User not found or User isn't administrator",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "type":"object",
+                  "properties":{
+                    "error":{
+                      "type":"string",
+                      "enum":["User not found or User isn't administrator"]
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
     },
-    "/users/:user_id":{
+    "/users/{user_id}":{
       "get":{
         "tags":["User"],
         "summary":"List a User",
@@ -204,22 +250,28 @@
                   "type":"object",
                   "properties":{
                     "id":{
-                      "type":"uuid"
+                      "type":"string",
+                      "enum":["aced8d93-7162-4014-8c48-f0e2f251f6ab"]
                     },
                     "admin":{
-                      "type":"boolean"
+                      "type":"boolean",
+                      "enum":[false]
                     },
                     "name":{
-                      "type":"string"
+                      "type":"string",
+                      "enum":["name user sample"]
                     },
                     "email":{
-                      "type":"string"
+                      "type":"string",
+                      "enum":["email@email.com"]
                     },
                     "created_at":{
-                      "type":"Date"
+                      "type":"string",
+                      "enum":["2021-03-21T16:24:38.741Z"]
                     },
                     "updated_at":{
-                      "type":"Date"
+                      "type":"string",
+                      "enum":["2021-03-21T16:24:38.741Z"]
                     }
                   }
                 }
@@ -227,7 +279,20 @@
             }
           },
           "400":{
-            "description":"User not found or User isn't administrator"
+            "description":"User not found",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "type":"object",
+                  "properties":{
+                    "error":{
+                      "type":"string",
+                      "enum":["User not found"]
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
